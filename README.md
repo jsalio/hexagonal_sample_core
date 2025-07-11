@@ -1,6 +1,31 @@
-# Hexagonal Architecture Sample in Node.js
+# 🏗️ Hexagonal Architecture Sample in Node.js
 
-This is a sample project demonstrating Hexagonal Architecture (also known as Ports and Adapters) in a Node.js application using TypeScript.
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.9+-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+
+A clean architecture implementation using Hexagonal Architecture (Ports and Adapters) pattern in Node.js with TypeScript. This project serves as a reference for building maintainable and testable server-side applications.
+
+## ✨ Features
+
+- 🏗️ Hexagonal Architecture implementation
+- 🛡️ Type safety with TypeScript
+- 🧪 Test-driven development with Vitest
+- 📊 Code coverage reporting
+- 🎨 Consistent code style with ESLint & Prettier
+- 🔄 Dependency injection for better testability
+
+## 📋 Table of Contents
+
+- [Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Development](#-development)
+- [Testing](#-testing)
+- [Architecture](#-architecture)
+- [SOLID Principles](#-solid-principles)
+- [License](#-license)
+- [Contributing](#-contributing)
 
 ## 🏗️ Project Structure
 
@@ -69,13 +94,39 @@ npm run test:watch
 npm run test:coverage
 ```
 
-## 📦 Dependencies
-
-- TypeScript: For type safety
-- Vitest: For testing
-- ESLint & Prettier: For code quality and formatting
-
 ## 🏛️ Architecture
+
+This project follows the Hexagonal Architecture (Ports and Adapters) pattern, which promotes separation of concerns and testability by isolating the core business logic from external concerns like databases, UIs, or external services.
+
+### Core Concepts
+
+1. **Domain Layer**
+   - Contains business logic and domain models
+   - Located in `src/models/db/`
+   - Example: `User` entity
+
+2. **Application Layer**
+   - Contains use cases and business rules
+   - Located in `src/usecase/`
+   - Example: `LoginUser` use case
+
+3. **Interface Layer**
+   - Defines contracts (ports) for external interactions
+   - Located in `src/contracts/`
+   - Example: `IRequest` interface
+
+4. **Adapters**
+   - Implements the ports to connect with external systems
+   - Handles data transformation between external and internal formats
+   - Example: Database adapters, API controllers
+
+### Data Flow
+
+```
+External Request → Adapter → Port → Use Case → Domain Model
+                      ↑           ↓
+                      └───────────┘
+```
 
 This project follows the Hexagonal Architecture pattern, which separates the core business logic from external concerns like databases, UIs, or external services.
 
@@ -86,7 +137,41 @@ This project follows the Hexagonal Architecture pattern, which separates the cor
 3. **Use Cases**: Contain the application's business logic.
 4. **Domain Models**: Represent the core business entities and rules.
 
-## 🧱 SOLID Principles
+## 🧱 SOLID Principles in Practice
+
+This project strictly follows the SOLID principles to ensure clean, maintainable, and scalable code:
+
+### 1. Single Responsibility Principle (SRP)
+   - Each class has one reason to change
+   - Clear separation between:
+     - Business logic (use cases)
+     - Data transfer (DTOs)
+     - External interactions (adapters)
+   - Example: `LoginUser` class handles only authentication logic
+
+### 2. Open/Closed Principle (OCP)
+   - Open for extension, closed for modification
+   - New features can be added by:
+     - Creating new use cases
+     - Implementing existing interfaces
+     - Adding new adapters
+   - Example: New authentication methods can be added without changing existing code
+
+### 3. Liskov Substitution Principle (LSP)
+   - Derived classes can replace their base types
+   - All interface implementations are fully substitutable
+   - Example: Any class implementing `IRequest` can be used interchangeably
+
+### 4. Interface Segregation Principle (ISP)
+   - Clients shouldn't depend on interfaces they don't use
+   - Small, focused interfaces
+   - Example: `IRequest` contains only essential methods for request handling
+
+### 5. Dependency Inversion Principle (DIP)
+   - High-level modules don't depend on low-level modules
+   - Both depend on abstractions
+   - Dependencies are injected through constructors
+   - Example: Use cases depend on interfaces, not concrete implementations
 
 This project adheres to the SOLID principles of object-oriented design:
 
@@ -115,10 +200,43 @@ This project adheres to the SOLID principles of object-oriented design:
    - Dependencies are injected through constructors
    - The application core defines the interfaces that external adapters implement
 
+## 📦 Dependencies
+
+- **Runtime**:
+  - Node.js 18+
+  - TypeScript 5.8+
+
+- **Development**:
+  - Vitest: For testing
+  - ESLint & Prettier: Code quality and formatting
+  - ts-node: TypeScript execution
+
 ## 📄 License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
+We welcome contributions! Here's how you can help:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### 🐛 Reporting Issues
+
+Found a bug? Please open an issue on GitHub with:
+- A clear description of the problem
+- Steps to reproduce
+- Expected vs actual behavior
+- Any relevant error messages
+
+### 🚀 Feature Requests
+
+Have an idea for improvement? Open an issue and let's discuss it!
+
+---
+
+Built with ❤️ using Hexagonal Architecture and SOLID principles
